@@ -7,7 +7,10 @@ const difference = document.querySelector('#difference');
 
 const play_btn = document.querySelector('#play_btn');
 
-function setDifference(){
+/**
+ * 差分を記録する
+*/
+function setDifference() {
     const val = Number(range2.value) - Number(range1.value);
     difference.textContent = val.toFixed(2);
 }
@@ -35,11 +38,16 @@ plot(range1.value, range2.value);
 // Playボタンのイベント
 play_btn.addEventListener('click', () => {
     play();
+    // playボタン無効化
+    document.getElementById('play_btn').disabled = true;
 });
 
 function play(range1_value = 0, range2_value = 0) {
     // データの範囲を超えると終了
-    if (range2_value >= range2.max) return;
+    if (range2_value >= range2.max) {
+        document.getElementById('play_btn').disabled = false;
+        return;
+    }
     window.setTimeout(() => {
         startValue.textContent = range1_value;
         endValue.textContent = range2_value;
