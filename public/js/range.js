@@ -6,6 +6,8 @@ const endValue = document.querySelector('#end-value');
 const difference = document.querySelector('#difference');
 
 const play_btn = document.querySelector('#play_btn');
+// 間隔セッター
+var interval_time = 0;
 
 /**
  * 差分を記録する
@@ -37,6 +39,8 @@ plot(range1.value, range2.value);
 
 // Playボタンのイベント
 play_btn.addEventListener('click', () => {
+    interval_time = document.getElementById('interval_time').value;
+    console.log(interval_time);
     play();
     // playボタン無効化
     document.getElementById('play_btn').disabled = true;
@@ -49,6 +53,7 @@ function play(range1_value = 0, range2_value = 0) {
         return;
     }
     window.setTimeout(() => {
+        console.log(interval_time);
         startValue.textContent = range1_value;
         endValue.textContent = range2_value;
         range1.value = range1_value;
@@ -56,7 +61,7 @@ function play(range1_value = 0, range2_value = 0) {
         setDifference();
         plot(range1_value, range2_value);
         // 再帰呼び出し
-        if (range2_value - range1_value >= 10)
+        if (interval_time && range2_value - range1_value >= interval_time)
             play(range1_value + 0.1, range2_value + 0.1);
         else 
             play(range1_value, range2_value + 0.1);
