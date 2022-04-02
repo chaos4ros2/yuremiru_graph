@@ -51,11 +51,15 @@ function play(range1_value = 0, range2_value = 0) {
     window.setTimeout(() => {
         startValue.textContent = range1_value;
         endValue.textContent = range2_value;
+        range1.value = range1_value;
         range2.value = range2_value;
         setDifference();
         plot(range1_value, range2_value);
         // 再帰呼び出し
-        play(range1_value, range2_value + 0.1);
+        if (range2_value - range1_value >= 10)
+            play(range1_value + 0.1, range2_value + 0.1);
+        else 
+            play(range1_value, range2_value + 0.1);
     }, 100);
 }
 

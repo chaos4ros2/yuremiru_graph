@@ -56,3 +56,28 @@
     background: rgb(77, 169, 255);
     box-shadow: -100vw 0 0 100vw var(--bar);
 }
+
+
+.btn {
+    position: relative;
+    width: 200px;
+    height: 60px;
+    margin: 0 auto;
+    cursor: pointer;
+}
+
+.btn--text {
+    text-align: center;
+    line-height: 60px;
+    font-size: large;
+}
+
+.btn--orange {
+    background-color: #fff100;
+    border-bottom: 5px solid #ccc100;
+}
+
+.btn--shadow {
+    -webkit-box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+}
