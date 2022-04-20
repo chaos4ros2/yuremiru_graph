@@ -6,8 +6,19 @@ const endValue = document.querySelector('#end-value');
 const difference = document.querySelector('#difference');
 
 const play_btn = document.querySelector('#play_btn');
+const pause_btn = document.querySelector('#pause_btn');
+
+// 状態保存用オブジェクト（停止のポイントから再生するため）
+let state = {
+    start: null,
+    end: null,
+}
+
 // 間隔セッター
 var interval_time = 0;
+
+// setTimeout停止用ID
+let time_id = null;
 
 /**
  * 差分を記録する
@@ -43,16 +54,21 @@ play_btn.addEventListener('click', () => {
     console.log(interval_time);
     play();
     // playボタン無効化
-    document.getElementById('play_btn').disabled = true;
+    play_btn.disabled = true;
 });
 
 function play(range1_value = 0, range2_value = 0) {
+    // 値は0でしかも状態すでに存在する場合はそれを使用
+    range1_value = state.start && !range1_value ? state.start : range1_value;
+    range2_value = state.end && !range2_value ? state.end : range2_value;
+    // 状態を保存
+    [state.start, state.end] = [range1_value, range2_value];
     // データの範囲を超えると終了
     if (range2_value >= range2.max) {
         document.getElementById('play_btn').disabled = false;
         return;
     }
-    window.setTimeout(() => {
+    time_id = window.setTimeout(() => {
         console.log(interval_time);
         startValue.textContent = range1_value;
         endValue.textContent = range2_value;
@@ -67,6 +83,14 @@ function play(range1_value = 0, range2_value = 0) {
             play(range1_value, range2_value + 0.1);
     }, 100);
 }
+
+// Pauseボタンにイベントを追加
+pause_btn.addEventListener('click', () => {
+    clearTimeout(time_id);
+    // playボタン有効化
+    play_btn.disabled = false;
+});
+
 
 function plot(range_1, range_2) {
     const data = get_data();
