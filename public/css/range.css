@@ -75,7 +75,7 @@
     font-size: large;
 }
 
-.btn--orange {
+.btn--yellow {
     background-color: #fff100;
     border-bottom: 5px solid #ccc100;
 }
@@ -83,6 +83,12 @@
 .btn--red {
     background-color: #ff2200;
     border-bottom: 5px solid #cc2200;
+}
+
+
+.btn--gray {
+    background-color: #999;
+    border-bottom: 5px solid #888;
 }
 
 .btn--shadow {

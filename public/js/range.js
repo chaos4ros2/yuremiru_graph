@@ -7,6 +7,7 @@ const difference = document.querySelector('#difference');
 
 const play_btn = document.querySelector('#play_btn');
 const pause_btn = document.querySelector('#pause_btn');
+const reset_btn = document.querySelector('#reset_btn');
 
 // 状態保存用オブジェクト（停止のポイントから再生するため）
 let state = {
@@ -91,6 +92,18 @@ pause_btn.addEventListener('click', () => {
     play_btn.disabled = false;
 });
 
+// Resetボタンにイベントを追加
+reset_btn.addEventListener('click', () => {
+    // 状態をリセット
+    [state.start, state.end] = [null, null];
+    // viewもリセット
+    plot(state.start, range2.max); // グラフ
+    [range1.value, range2.value] = [0, range2.max]; // スライドバー
+    [startValue.textContent, endValue.textContent] = [0, range2.max]; // ラベル表示
+    setDifference(); // 差分
+    // playボタン有効化
+    play_btn.disabled = false;
+});
 
 function plot(range_1, range_2) {
     const data = get_data();
